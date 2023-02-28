@@ -1,9 +1,12 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
-import { useState } from 'react'
 import { FaStar, FaStarHalfAlt, FaStarHalf, FaRegStar } from 'react-icons/fa'
 import Header from '@/components/Header'
+
+// import prisma from '../../lib/prismadb'
+
+import { useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,7 +40,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 gap-6 mt-12 lg:mt-16 xl:gap-10 sm:grid-cols-2 lg:grid-cols-3">
               {gurus.map(guru => {
-                return <Link href={`/guru/${guru.pk}`} className="overflow-hidden bg-white rounded shadow">
+                return <Link key={guru.pk} href={`/guru/${guru.pk}`} className="overflow-hidden bg-white rounded shadow">
                   <div className="p-8">
                     <div className="flex items-center gap-x-4">
                       <span className='block w-16 h-16 bg-slate-100 rounded-xl border-2 border-slate-200'></span>
@@ -53,16 +56,13 @@ export default function Home() {
                         </div>
                       </div>
                       <svg className="hidden w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
                     </div>
                     <p className="text-base leading-relaxed text-gray-600 mt-7">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
                   </div>
                 </Link>
               })}
-
-
-
             </div>
 
             <div className="mt-12 text-center">
@@ -78,6 +78,7 @@ export default function Home() {
 }
 
 export async function getServerSideProps(context) {
+  //const accounts = await prisma.Account.findMany()
   return {
     props: {},
   }
