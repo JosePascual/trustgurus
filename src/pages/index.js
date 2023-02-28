@@ -1,9 +1,22 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { Inter } from 'next/font/google'
+import { useState } from 'react'
+import { FaStar, FaStarHalfAlt, FaStarHalf, FaRegStar } from 'react-icons/fa'
+import Header from '@/components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const [gurus, setGurus] = useState([
+    { pk: 'bruno-sanders', name: "Bruno Sanders" },
+    { pk: 'adrian-saenz', name: "Adrian Saenz" },
+    { pk: 'enrique-morris', name: "Enrique Morris" },
+    { pk: 'alejandro-estevaranz', name: "Alejandro Estevaranz" },
+    { pk: 'jose-marquez', name: "José Marquez" },
+    { pk: 'josef-brocki', name: "Josef Brocki" },
+  ])
   return (
     <>
       <Head>
@@ -12,9 +25,60 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="w-full h-screen bg-red-400">
+      <main className="w-full h-screen bg-slate-50">
+        <Header />
+
+        <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
+          <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Integrate with apps</h2>
+              <p className="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis.</p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 mt-12 lg:mt-16 xl:gap-10 sm:grid-cols-2 lg:grid-cols-3">
+              {gurus.map(guru => {
+                return <Link href={`/guru/${guru.pk}`} className="overflow-hidden bg-white rounded shadow">
+                  <div className="p-8">
+                    <div className="flex items-center gap-x-4">
+                      <span className='block w-16 h-16 bg-slate-100 rounded-xl border-2 border-slate-200'></span>
+                      <div className="">
+                        <p className="text-xl font-semibold text-black">{guru.name}</p>
+                        <p className="mt-px text-sm text-gray-600">Direct Integration</p>
+                        <div className='flex justify-start items-center mt-1 text-yellow-400'>
+                          <FaStar />
+                          <FaStar />
+                          <FaStar />
+                          <FaStar />
+                          <FaStarHalfAlt />
+                        </div>
+                      </div>
+                      <svg className="hidden w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </div>
+                    <p className="text-base leading-relaxed text-gray-600 mt-7">Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                  </div>
+                </Link>
+              })}
+
+
+
+            </div>
+
+            <div className="mt-12 text-center">
+              <a href="#" title="" className="inline-flex p-3 font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 focus:text-blue-700 hover:underline"> Check all 1,593 applications </a>
+            </div>
+          </div>
+        </section>
+
 
       </main>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: {},
+  }
 }
